@@ -5,6 +5,7 @@ import br.com.agendaDigital.backend.entity.Cliente;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component
 public class ClienteMapper {
@@ -17,5 +18,12 @@ public class ClienteMapper {
         cliente.setDataNascimento(clienteDTO.getDataNascimento());
         cliente.setContatos(new ArrayList<>());
         return cliente;
+    }
+
+    public void updateCliente(ClienteDTO clienteDTO, Cliente cliente) {
+        Optional.ofNullable(clienteDTO.getNome()).ifPresent(cliente::setNome);
+        Optional.ofNullable(clienteDTO.getEndereco()).ifPresent(cliente::setEndereco);
+        Optional.ofNullable(clienteDTO.getDataNascimento()).ifPresent(cliente::setDataNascimento);
+        Optional.ofNullable(clienteDTO.getCpf()).ifPresent(cliente::setCpf);
     }
 }
