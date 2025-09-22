@@ -1,4 +1,4 @@
-package entity;
+package br.com.agendaDigital.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

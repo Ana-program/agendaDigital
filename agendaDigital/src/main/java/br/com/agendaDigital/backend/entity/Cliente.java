@@ -1,4 +1,4 @@
-package entity;
+package br.com.agendaDigital.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String nome;
     private String cpf;
     private String endereco;
 
