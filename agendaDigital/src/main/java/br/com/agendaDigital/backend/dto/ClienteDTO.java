@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class ClienteDTO {
 
     private String nome;
-    private String cpf;
     private String endereco;
 
     @Column(name = "data_nascimento")
