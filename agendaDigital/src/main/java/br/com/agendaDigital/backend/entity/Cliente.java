@@ -27,8 +27,4 @@ public class Cliente {
 
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-
-    @OneToMany
-    private List<Contato> contatos;
-
 }
