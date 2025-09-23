@@ -1,5 +1,6 @@
 package br.com.agendaDigital.backend.entity;
 
+import br.com.agendaDigital.backend.enums.TipoContato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +20,12 @@ public class Contato {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoContato tipo;
+
     private String valor;
     private String observacao;
-
-
 }
