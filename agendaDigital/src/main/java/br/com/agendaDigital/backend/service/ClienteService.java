@@ -19,8 +19,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    public void registrarCliente(ClienteDTO clienteDTO) {
-        Cliente cliente = clienteMapper.toEntity(clienteDTO);
+    public void createCliente(Cliente cliente) {
        repository.save(cliente);
     }
 
