@@ -10,9 +10,9 @@ const clienteFromForm = () => ({
 });
 
 const clienteUpdate = () => ({
-    nome: getValue("nome"),
-    endereco: getValue("endereco"),
-    dataNascimento: getValue("dataNascimento")
+    nome: getValue("nomeUpdate"),
+    endereco: getValue("enderecoUpdate"),
+    dataNascimento: getValue("dataNascimentoUpdate")
 });
 
 const handleResponse = (res, successMsg, errorMsg) => {
@@ -22,7 +22,7 @@ const handleResponse = (res, successMsg, errorMsg) => {
 
 
 document.querySelector("button")?.addEventListener("click", () => {
-    if (!document.getElementById("cpf")) return; // só roda no index.html
+    if (!document.getElementById("cpf")) return;
 
     fetch(`${baseUrl}/create`, {
         method: "POST",
@@ -40,7 +40,6 @@ document.querySelector("button:nth-of-type(3)")?.addEventListener("click", () =>
                 return;
             }
 
-
             const lista = data.map((c, i) =>
                 `${i + 1} - ${c.nome} | ${c.cpf} | ${c.endereco} | ${c.dataNascimento}`
             ).join("\n");
@@ -52,26 +51,24 @@ document.querySelector("button:nth-of-type(3)")?.addEventListener("click", () =>
         });
 });
 
-
 document.querySelector(".update")?.addEventListener("click", () => {
-    if (!document.getElementById("search")) return;
+    const termo = document.getElementById("search").value.trim();
+    if (!termo) return alert("Digite um nome ou CPF!");
 
-    const termo = getValue("search");
+    const param = /^\d{11}$/.test(termo) ? "cpf" : "nome";
 
-    fetch(`${baseUrl}?nome=${termo}&cpf=${termo}`)
+        fetch(`/api/clientes?${param}=${termo}`)
         .then(res => res.json())
         .then(data => {
-            if (data.length > 0) {
-                const cliente = data[0];
-                document.getElementById("resultado").innerText =
-                    `Nome: ${cliente.nome}\nCPF: ${cliente.cpf}\nEndereço: ${cliente.endereco}\nNascimento: ${cliente.dataNascimento}`;
-            } else {
+            if (!data || data.length === 0) {
                 document.getElementById("resultado").innerText = "Cliente não encontrado.";
+                return;
             }
+            const c = data[0];
+            document.getElementById("resultado").innerText =
+                `Nome: ${c.nome}\nCPF: ${c.cpf}\nEndereço: ${c.endereco}\nNascimento: ${c.dataNascimento}`;
         })
-        .catch(() => {
-            document.getElementById("resultado").innerText = "Erro na busca.";
-        });
+        .catch(() => document.getElementById("resultado").innerText = "Erro na busca.");
 });
 
 document.querySelector(".updateCliente")?.addEventListener("click", () => {
