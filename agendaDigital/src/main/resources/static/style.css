@@ -82,3 +82,10 @@ button:hover {
     font-size: 10px; !important;
 }
 
+.required{
+    color: red;
+}
+
+
+
+
